@@ -2,14 +2,45 @@
 
 namespace App\Repositories;
 
-use Prettus\Repository\Contracts\RepositoryInterface;
+use Prettus\Repository\Eloquent\BaseRepository;
+use Prettus\Repository\Criteria\RequestCriteria;
+use App\Entities\Comment;
+use App\Validators\CommentValidator;
 
 /**
- * Interface CommentRepository.
+ * Class CommentRepository.
  *
  * @package namespace App\Repositories;
  */
-interface CommentRepository extends RepositoryInterface
+class CommentRepository extends BaseRepository
 {
-    //
+    /**
+     * Specify Model class name
+     *
+     * @return string
+     */
+    public function model()
+    {
+        return Comment::class;
+    }
+
+    /**
+     * Specify Validator class name
+     *
+     * @return mixed
+     */
+    public function validator()
+    {
+        return CommentValidator::class;
+    }
+
+
+    /**
+     * Boot up the repository, pushing criteria
+     */
+    public function boot()
+    {
+        $this->pushCriteria(app(RequestCriteria::class));
+    }
+
 }
