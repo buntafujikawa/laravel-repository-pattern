@@ -16,10 +16,31 @@ class Post extends Model implements Transformable
     use TransformableTrait;
 
     /**
+     * Table name
+     *
+     * @var string
+     */
+    protected $table = 'posts';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'title',
+        'user_id',
+        'category_id',
+        'content',
+    ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
 }

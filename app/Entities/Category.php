@@ -16,9 +16,21 @@ class Category extends Model implements Transformable
     use TransformableTrait;
 
     /**
+     * Table name
+     *
+     * @var string
+     */
+    protected $table = 'categories';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = ['name'];
+
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
+    }
 }
